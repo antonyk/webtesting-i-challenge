@@ -2,10 +2,38 @@ const enhancer = require('./enhancer.js');
 // require('jest')
 
 const defaultItem = {
-  name: 'item name',
+  name: 'Iron Sword',
   durability: 100,
   enhancement: 0
 }
+
+// VALID items
+const e1d1 = {...defaultItem, enhancement:0, durability: 0}
+const e1d2 = {...defaultItem, enhancement:0, durability: 50}
+const e1d3 = {...defaultItem, enhancement:0, durability: 100}
+const e2d1 = {...defaultItem, enhancement:10, durability: 0}
+const e2d2 = {...defaultItem, enhancement:10, durability: 50}
+const e2d3 = {...defaultItem, enhancement:10, durability: 100}
+const e3d1 = {...defaultItem, enhancement:14, durability: 0}
+const e3d2 = {...defaultItem, enhancement:14, durability: 50}
+const e3d3 = {...defaultItem, enhancement:14, durability: 100}
+const e4d1 = {...defaultItem, enhancement:15, durability: 0}
+const e4d2 = {...defaultItem, enhancement:15, durability: 50}
+const e4d3 = {...defaultItem, enhancement:15, durability: 100}
+const e5d1 = {...defaultItem, enhancement:16, durability: 0}
+const e5d2 = {...defaultItem, enhancement:16, durability: 50}
+const e5d3 = {...defaultItem, enhancement:16, durability: 100}
+const e6d1 = {...defaultItem, enhancement:17, durability: 0}
+const e6d2 = {...defaultItem, enhancement:17, durability: 50}
+const e6d3 = {...defaultItem, enhancement:17, durability: 100}
+const e7d1 = {...defaultItem, enhancement:20, durability: 0}
+const e7d2 = {...defaultItem, enhancement:20, durability: 50}
+const e7d3 = {...defaultItem, enhancement:20, durability: 100}
+
+// INVALID items
+const xe1d1 = {...defaultItem, enhancement:21, durability: 110}
+const xe1d2 = {...defaultItem, enhancement:21, durability: -1}
+const xe1d3 = {...defaultItem, enhancement:21, durability: 50.5}
 
 describe('enhancer', () => {
   describe('repair(item)', () => {
@@ -42,33 +70,6 @@ describe('enhancer', () => {
 
       // expect(enhancer.succeed({...item, enhancement:0}).durability).toBe(50)
 
-      // VALID items
-      const e1d1 = {...item, enhancement:0, durability: 0}
-      const e1d2 = {...item, enhancement:0, durability: 50}
-      const e1d3 = {...item, enhancement:0, durability: 100}
-      const e2d1 = {...item, enhancement:10, durability: 0}
-      const e2d2 = {...item, enhancement:10, durability: 50}
-      const e2d3 = {...item, enhancement:10, durability: 100}
-      const e3d1 = {...item, enhancement:14, durability: 0}
-      const e3d2 = {...item, enhancement:14, durability: 50}
-      const e3d3 = {...item, enhancement:14, durability: 100}
-      const e4d1 = {...item, enhancement:15, durability: 0}
-      const e4d2 = {...item, enhancement:15, durability: 50}
-      const e4d3 = {...item, enhancement:15, durability: 100}
-      const e5d1 = {...item, enhancement:16, durability: 0}
-      const e5d2 = {...item, enhancement:16, durability: 50}
-      const e5d3 = {...item, enhancement:16, durability: 100}
-      const e6d1 = {...item, enhancement:17, durability: 0}
-      const e6d2 = {...item, enhancement:17, durability: 50}
-      const e6d3 = {...item, enhancement:17, durability: 100}
-      const e7d1 = {...item, enhancement:20, durability: 0}
-      const e7d2 = {...item, enhancement:20, durability: 50}
-      const e7d3 = {...item, enhancement:20, durability: 100}
-
-      // INVALID items
-      const xe1d1 = {...item, enhancement:21, durability: 110}
-      const xe1d2 = {...item, enhancement:21, durability: -1}
-      const xe1d3 = {...item, enhancement:21, durability: 50.5}
 
       expect(enhancer.fail(e1d1)).toEqual({...e1d1})
       expect(enhancer.fail(e1d2)).toEqual({...e1d2, durability: 45})
@@ -86,8 +87,15 @@ describe('enhancer', () => {
     })
   })
 
-  describe('get()', () => {
-    it.todo('a method for use when working on the stretch problem')
+  describe('get(item)', () => {
+    it('a method for use when working on the stretch problem', () => {
+      expect(enhancer.get(e1d1)).not.toBe(e1d1)
+
+      expect(enhancer.get(e1d2)).toEqual({...e1d2})
+      expect(enhancer.get(e2d2)).toEqual({...e2d2, name: "[+10] Iron Sword"})
+      expect(enhancer.get(e7d2)).toEqual({...e7d2, name: "[+20] Iron Sword"})
+
+    })
   })
 
 })
