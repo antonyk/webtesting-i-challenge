@@ -39,7 +39,7 @@ describe('enhancer', () => {
   describe('repair(item)', () => {
     test('repairs item by returning a new item with durability of 100', () => {
       const item = {...defaultItem}
-      // argument and return are not the same object
+
       expect(enhancer.repair(item)).not.toBe(item)
       expect(enhancer.repair({...item, durability: 50}).durability).toBe(100)
       expect(enhancer.repair({...item, durability: 100}).durability).toBe(100)
@@ -61,15 +61,6 @@ describe('enhancer', () => {
     it('accepts an item and returns a new item object modified accordint to the rule defined by the client for enhancement failure', () => {
       const item = {...defaultItem, durability: 50}
       expect(enhancer.fail(item)).not.toBe(item)
-
-      // const first = expect(enhancer.succeed({...item, enhancement:0}).enhancement).toBe(0)
-      // expect(enhancer.succeed({...item, enhancement:10}).enhancement).toBe(10)
-      // expect(enhancer.succeed({...item, enhancement:16}).enhancement).toBe(16)
-      // expect(enhancer.succeed({...item, enhancement:17}).enhancement).toBe(16)
-      // expect(enhancer.succeed({...item, enhancement:20}).enhancement).toBe(19)
-
-      // expect(enhancer.succeed({...item, enhancement:0}).durability).toBe(50)
-
 
       expect(enhancer.fail(e1d1)).toEqual({...e1d1})
       expect(enhancer.fail(e1d2)).toEqual({...e1d2, durability: 45})
@@ -94,8 +85,6 @@ describe('enhancer', () => {
       expect(enhancer.get(e1d2)).toEqual({...e1d2})
       expect(enhancer.get(e2d2)).toEqual({...e2d2, name: "[+10] Iron Sword"})
       expect(enhancer.get(e7d2)).toEqual({...e7d2, name: "[+20] Iron Sword"})
-
     })
   })
-
 })
